@@ -29,7 +29,7 @@ class FritzPowerline(AbstractLibraryBase):
         return self.fc.call_action(service, actionname, **kwargs)
     
     @property
-    def host_number(self):
+    def device_number(self):
         """
         Number of registered powerline devices for the active
         X_AVM-DE_Homeplug configuration.
@@ -37,7 +37,7 @@ class FritzPowerline(AbstractLibraryBase):
         result = self._action('GetNumberOfDeviceEntries')
         return result['NewNumberOfEntries']
         
-    def get_generic_host_entry(self, index):
+    def get_generic_device_entry(self, index):
         """
         Return a dictionary with informations about the device
         internally stored at the position 'index'.
@@ -48,7 +48,7 @@ class FritzPowerline(AbstractLibraryBase):
         )
         return result
     
-    def get_specific_host_entry(self, mac_address):
+    def get_specific_device_entry(self, mac_address):
         """
         Return a dictionary with informations about the device
         with the given 'mac_address'.
@@ -63,8 +63,8 @@ class FritzPowerline(AbstractLibraryBase):
         """
         Triggers the device with the given `mac_address` to run an
         update. The method returns immediately, but for the device it
-        take some time to do the OS update. All vendor warnings about running a
-        system update apply, like not turning power off during a system
+        take some time to do the OS update. All vendor warnings about running
+        an update apply, like not turning power off during an
         update. So run this command with caution.
         """
         result = self._action(
@@ -72,9 +72,9 @@ class FritzPowerline(AbstractLibraryBase):
             NewMACAddress=mac_address
         )
 
-    def get_hosts_info(self):
+    def get_device_info(self):
         """
-        Returns a list of dictionaries with information about the known hosts.
+        Returns a list of dictionaries with information about the known devices.
         The dict-keys are: 'service', 'index', 'active', 'mac', 'name', 'model',
         'updateAvailable' and 'updateSuccess'
         """
