@@ -16,6 +16,7 @@ from ..lib.fritzhosts import FritzHosts
 from ..lib.fritzphonebook import FritzPhonebook
 from ..lib.fritzstatus import FritzStatus
 from ..lib.fritzwlan import FritzWLAN
+from ..lib.fritzpowerline import FritzPowerline
 
 
 TIMEOUT = 2.0  # give older models some time
@@ -107,6 +108,8 @@ def test_soap_access(use_tls, get_fc_instance, get_fc_tls_instance):
         (FritzStatus, True),
         (FritzWLAN, False),
         (FritzWLAN, True),
+        (FritzPowerline, False),
+        (FritzPowerline, True),
     ])
 def test_library_api_arguments(cls, use_tls):
     obj = cls(timeout=TIMEOUT, use_tls=use_tls)
@@ -122,7 +125,8 @@ def test_library_api_arguments(cls, use_tls):
         FritzHosts,
         FritzPhonebook,
         FritzStatus,
-        FritzWLAN
+        FritzWLAN,
+        FritzPowerline
     ])
 def test_init_cls_with_instance(cls, get_fc_instance):
     obj = cls(fc=get_fc_instance)
@@ -137,7 +141,8 @@ def test_init_cls_with_instance(cls, get_fc_instance):
         FritzHosts,
         FritzPhonebook,
         FritzStatus,
-        FritzWLAN
+        FritzWLAN,
+        FritzPowerline
     ])
 def test_init_cls_with_tls_instance(cls, get_fc_tls_instance):
     obj = cls(fc=get_fc_tls_instance)
